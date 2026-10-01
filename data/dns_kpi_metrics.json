@@ -1,0 +1,21 @@
+{
+  "total_records": 11712623,
+  "total_queries": 5861701,
+  "total_responses": 5850922,
+  "queries_per_second": 3256.5,
+  "ipv6_ratio_pct": 72.42,
+  "udp_ratio_pct": 95.64,
+  "nxdomain_count": 675229,
+  "nxdomain_pct": 11.5406,
+  "top1_resolver_subnet": "2d68:a529:78c2::/48",
+  "top1_resolver_share_pct": 47.4507,
+  "top5_resolver_share_pct": 50.74929615140724,
+  "dnssec_overall_do_pct": 87.5891,
+  "dnssec_top1_resolver_do_pct": 97.11,
+  "dnssec_non_top1_resolvers_do_pct": 78.99,
+  "compromised_domains_count": 946,
+  "compromised_queries_count": 3263,
+  "gov_compromised_count": 74,
+  "edu_compromised_count": 69,
+  "dga_candidates_count": 1035
+}

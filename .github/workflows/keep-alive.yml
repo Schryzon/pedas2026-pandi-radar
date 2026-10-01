@@ -1,0 +1,34 @@
+name: Keep Dashboard Alive
+
+on:
+  schedule:
+    # Every 6 hours: 00:00, 06:00, 12:00, 18:00 UTC
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Ping Streamlit Health Endpoint
+        run: |
+          APP_URL="https://pedas2026-pandi-radar.streamlit.app"
+          
+          echo "=== Ping at $(date -u) ==="
+          
+          HEALTH=$(curl -s -o /dev/null -w "%{http_code}" \
+            --max-time 30 \
+            "${APP_URL}/_stcore/health" || echo "000")
+          echo "Health endpoint: HTTP $HEALTH"
+          
+          MAIN=$(curl -s -o /dev/null -w "%{http_code}" \
+            --max-time 60 \
+            "${APP_URL}/" || echo "000")
+          echo "Main page: HTTP $MAIN"
+          
+          if [ "$HEALTH" = "200" ] || [ "$MAIN" = "200" ]; then
+            echo "Dashboard is alive. Inactivity timer reset successfully."
+          else
+            echo "::warning::Dashboard returned HTTP $HEALTH (health) / $MAIN (main). Manual wake may be required."
+          fi

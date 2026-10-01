@@ -1,0 +1,104 @@
+{
+  "dataset_name": "sample-dns-30min.parquet",
+  "total_records": 11712623,
+  "time_stats": {
+    "min_ts": 1787125797.649752,
+    "max_ts": 1787127597.566419,
+    "min_ts_iso": "2026-08-19T15:49:57.649752+08:00",
+    "max_ts_iso": "2026-08-19T16:19:57.566419+08:00",
+    "duration_seconds": 1799.916666984558,
+    "distinct_seconds": 1801
+  },
+  "qr_distribution": [
+    {
+      "qr": 0,
+      "qr_label": "Query",
+      "count": 5861701,
+      "percentage": 50.046014458076556
+    },
+    {
+      "qr": 1,
+      "qr_label": "Response",
+      "count": 5850922,
+      "percentage": 49.953985541923444
+    }
+  ],
+  "proto_distribution": [
+    {
+      "ip_ver": 6,
+      "proto": "udp",
+      "count": 8172268,
+      "percentage": 69.77316694987962
+    },
+    {
+      "ip_ver": 4,
+      "proto": "udp",
+      "count": 3029964,
+      "percentage": 25.869218193055474
+    },
+    {
+      "ip_ver": 6,
+      "proto": "tcp",
+      "count": 310003,
+      "percentage": 2.646742749254373
+    },
+    {
+      "ip_ver": 4,
+      "proto": "tcp",
+      "count": 200388,
+      "percentage": 1.710872107810522
+    }
+  ],
+  "cardinality_stats": {
+    "raw_distinct_qnames": 2243284,
+    "lower_distinct_qnames": 1111879,
+    "distinct_src_ips": 88371,
+    "distinct_dst_ips": 88369,
+    "distinct_qtypes": 56,
+    "distinct_rcodes": 7,
+    "inflation_0x20_count": 1131405,
+    "inflation_0x20_pct": 101.75612634108569
+  },
+  "null_columns": [
+    {
+      "column_name": "answers",
+      "null_count": 11646828.0,
+      "null_percentage": 99.43825563240617
+    },
+    {
+      "column_name": "ecs",
+      "null_count": 11616841.0,
+      "null_percentage": 99.18223270739611
+    },
+    {
+      "column_name": "ecs_scope",
+      "null_count": 11616841.0,
+      "null_percentage": 99.18223270739611
+    },
+    {
+      "column_name": "edns_udpsize",
+      "null_count": 423003.0,
+      "null_percentage": 3.6115138342624022
+    },
+    {
+      "column_name": "qclass",
+      "null_count": 4606.0,
+      "null_percentage": 0.03932509396059277
+    },
+    {
+      "column_name": "qtype_name",
+      "null_count": 4606.0,
+      "null_percentage": 0.03932509396059277
+    },
+    {
+      "column_name": "qtype",
+      "null_count": 4606.0,
+      "null_percentage": 0.03932509396059277
+    },
+    {
+      "column_name": "qname",
+      "null_count": 4606.0,
+      "null_percentage": 0.03932509396059277
+    }
+  ]
+}
