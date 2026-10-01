@@ -52,11 +52,9 @@ def wake_dashboard(target_url: str) -> None:
             if not button_clicked:
                 print("No sleep screen detected. Verifying active Streamlit WebSocket and DOM container...")
 
-            # Confirm app render via multiple robust locators (header, text, container, or iframe)
-            app_indicator = page.locator(
-                "h1, text='PANDI ccTLD', [data-testid='stAppViewContainer'], [data-testid='stApp'], iframe[title='streamlitApp']"
-            )
-            app_indicator.first.wait_for(timeout=RENDER_TIMEOUT_MS)
+            # Confirm app render: H1 title header, Streamlit view container, or iframe
+            print("Waiting for dashboard header element...")
+            page.locator("h1, [data-testid='stAppViewContainer'], iframe").first.wait_for(timeout=RENDER_TIMEOUT_MS)
             print("Streamlit dashboard rendered successfully!")
 
             # Keep connection open to let the WebSocket handshake register active telemetry
