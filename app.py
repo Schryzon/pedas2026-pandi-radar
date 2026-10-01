@@ -299,7 +299,7 @@ with tab4:
     st.subheader("4. IDADX Threat Hunter: Sovereign Sector Subdomain Weaponization")
     st.markdown("""
     Cross-correlating the IDADX threat lexicon against ccTLD queries with strict regex matching reveals **946 active malicious domains**.
-    **Critical Discovery:** Compromised government (`.go.id`) subdomains exhibit a **100.0% resolution success rate (NOERROR = 756, NXDOMAIN = 0)**. These sites are actively serving gambling content from legitimate institutional domains!
+    **Critical Discovery:** Compromised government (`.go.id`) subdomains exhibit an absolute **100.0% resolution success rate (NOERROR = 756, NXDOMAIN = 0)**, while higher education (`.ac.id`) reaches **95.51% active resolution (NOERROR = 298, NXDOMAIN = 14)**, bringing the public sector average to **98.69% active**! These sites are actively serving gambling content from legitimate institutional nameservers.
     """)
     
     col_th1, col_th2 = st.columns([4, 6])
