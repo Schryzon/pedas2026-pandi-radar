@@ -2,34 +2,38 @@ name: Keep Dashboard Alive
 
 on:
   schedule:
-    # Every 6 hours: 00:00, 06:00, 12:00, 18:00 UTC
-    - cron: '0 */6 * * *'
+    # Run every 4 hours: 00:00, 04:00, 08:00, 12:00, 16:00, 20:00 UTC
+    - cron: '0 */4 * * *'
   workflow_dispatch:
 
 jobs:
-  ping:
+  keep-alive:
     runs-on: ubuntu-latest
-    timeout-minutes: 3
+    timeout-minutes: 5
+
     steps:
-      - name: Ping Streamlit Health Endpoint
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install Playwright
         run: |
-          APP_URL="https://pedas2026-pandi-radar.streamlit.app"
-          
-          echo "=== Ping at $(date -u) ==="
-          
-          HEALTH=$(curl -s -o /dev/null -w "%{http_code}" \
-            --max-time 30 \
-            "${APP_URL}/_stcore/health" || echo "000")
-          echo "Health endpoint: HTTP $HEALTH"
-          
-          MAIN=$(curl -s -o /dev/null -w "%{http_code}" \
-            --max-time 60 \
-            "${APP_URL}/" || echo "000")
-          echo "Main page: HTTP $MAIN"
-          
-          # HTTP 200 (public app ok) or HTTP 303 (session handshake) indicates active container
-          if [ "$HEALTH" = "200" ] || [ "$MAIN" = "200" ] || [ "$HEALTH" = "303" ] || [ "$MAIN" = "303" ]; then
-            echo "Dashboard is reachable and alive (HTTP $HEALTH / $MAIN). Inactivity timer reset successfully."
-          else
-            echo "::warning::Dashboard returned HTTP $HEALTH (health) / $MAIN (main). Container may be asleep or unreachable."
-          fi
+          pip install playwright
+          playwright install chromium --with-deps
+
+      - name: Execute Headless Browser Keep-Alive
+        run: |
+          python wake_app.py
+
+      - name: Upload Diagnostic Screenshot on Failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: wake-diagnostic-screenshot
+          path: wake_attempt_screenshot.png
+          if-no-files-found: ignore
