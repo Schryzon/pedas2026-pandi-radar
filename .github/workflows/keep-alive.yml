@@ -17,18 +17,19 @@ jobs:
           
           echo "=== Ping at $(date -u) ==="
           
-          HEALTH=$(curl -s -o /dev/null -w "%{http_code}" \
+          # Use -L to follow redirects (Streamlit routing / session handshakes)
+          HEALTH=$(curl -s -L -o /dev/null -w "%{http_code}" \
             --max-time 30 \
             "${APP_URL}/_stcore/health" || echo "000")
-          echo "Health endpoint: HTTP $HEALTH"
+          echo "Health endpoint (-L): HTTP $HEALTH"
           
-          MAIN=$(curl -s -o /dev/null -w "%{http_code}" \
+          MAIN=$(curl -s -L -o /dev/null -w "%{http_code}" \
             --max-time 60 \
             "${APP_URL}/" || echo "000")
-          echo "Main page: HTTP $MAIN"
+          echo "Main page (-L): HTTP $MAIN"
           
-          if [ "$HEALTH" = "200" ] || [ "$MAIN" = "200" ]; then
-            echo "Dashboard is alive. Inactivity timer reset successfully."
+          if [ "$HEALTH" = "200" ] || [ "$MAIN" = "200" ] || [ "$HEALTH" = "303" ] || [ "$MAIN" = "303" ]; then
+            echo "Dashboard is reachable and alive. Inactivity timer reset successfully."
           else
             echo "::warning::Dashboard returned HTTP $HEALTH (health) / $MAIN (main). Manual wake may be required."
           fi
