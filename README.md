@@ -9,7 +9,7 @@ Interactive analytical dashboard for PeDaS 2026 Finals (Pesta Data Nasional) - B
 
 ## Live Dashboard
 
-https://pedas2026-pandi-radar.streamlit.app
+https://pedas2026-pandi-radar-1.streamlit.app
 
 ## Architecture and Components
 

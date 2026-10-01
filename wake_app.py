@@ -8,7 +8,7 @@ import sys
 import time
 from playwright.sync_api import sync_playwright
 
-DEFAULT_TARGET_URL = "https://pedas2026-pandi-radar.streamlit.app"
+DEFAULT_TARGET_URL = "https://pedas2026-pandi-radar-1.streamlit.app"
 PAGE_TIMEOUT_MS = 60000
 RENDER_TIMEOUT_MS = 45000
 IDLE_WAIT_SECONDS = 8
